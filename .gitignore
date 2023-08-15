@@ -41,3 +41,17 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# D4 game files
+d4_audio/enUS_speech/child/*
+d4_audio/base/child/*
+d4_audio/base/payload/*
+
+# D4 converted files
+OGG_child/*.ogg
+OGG_payload/*.ogg
+OGG_enUS_speech/*.ogg
+Tools/Decoding/*
+Tools/Decoding_child/*
+Tools/Decoding_payload/*
+Tools/Decoding_enUS_speech/*
