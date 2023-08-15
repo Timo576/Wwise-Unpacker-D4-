@@ -51,7 +51,12 @@ d4_audio/base/payload/*
 OGG_child/*.ogg
 OGG_payload/*.ogg
 OGG_enUS_speech/*.ogg
+
+# D4 Intermediate
 Tools/Decoding/*
 Tools/Decoding_child/*
 Tools/Decoding_payload/*
 Tools/Decoding_enUS_speech/*
+
+# Log files
+*.log

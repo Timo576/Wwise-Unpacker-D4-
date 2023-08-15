@@ -45,3 +45,13 @@ You'll need a player that supports the format! Personally I use "foobar2000" but
 ---
 
 If you end up doing something with the audio (videos for example) let me know, I really enjoy looking at other people's work. Hope this helped someone!
+
+
+
+**D4 fork**
+Extract files to d4audio
+Run Check4Changes
+If changes are found delete unchanged files and run the relevant unpack_to_OGG(likely all at once to utilize parallelization)
+Or if very few files they can be moved to Game Files and use Unpack to OGG
+Upload the converted files from OGG_* to their relevant host directory
+Update the old wWiseSoundBank folders and delete new wWiseSoundBank folders
