@@ -1,7 +1,7 @@
 ("Tools\quickbms.exe" "Tools\wavescan.bms" "d4_audio\base\payload\wWiseSoundBank" "Tools\Decoding_payload"
 FOR %%b IN ("d4_audio\base\payload\wWiseSoundBank\*.wsb") DO ("Tools\bnkextr.exe" "%%b")
 FOR %%c IN (Tools\Decoding_payload\*.WAV) DO ("Tools\ww2ogg.exe" "%%c" --pcb Tools\packed_codebooks_aoTuV_603.bin & DEL "%%c")
-FOR %%d IN (Tools\Decoding_payload\*.OGG) DO ("Tools\revorb.exe" "%%d" & MOVE "%%d" "OGG_payload")) > "batch_payload.log" 2>&1
+FOR %%d IN (Tools\Decoding_payload\*.OGG) DO ("Tools\revorb.exe" "%%d" & MOVE "%%d" "OGG_payload")) 2>> "Conversion_verification\batch_payload.log"
 
 @echo off
 

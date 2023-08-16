@@ -1,0 +1,12 @@
+ls files which have been converted > completed.txt
+
+find	_\d+.ogg$
+replace	.wsb
+remove duplicate lines
+
+ls files to be converted > todo.txt
+
+check batch has appropriate file names and folder paths
+run batch to compare files and move out if converted
+
+NB some files may not contain sound data
