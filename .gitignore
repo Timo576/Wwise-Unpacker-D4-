@@ -44,9 +44,7 @@ Temporary Items
 
 
 # D4 game files
-d4_audio/enUS_speech/child/*
-d4_audio/base/child/*
-d4_audio/base/payload/*
+d4_audio/*
 
 # D4 converted files
 OGG_child/*.ogg
@@ -63,6 +61,3 @@ Tools/Decoding_enUS_speech/*
 *.log
 completed.txt
 todo.txt
-
-# Misc
-Retail/*
