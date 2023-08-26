@@ -55,3 +55,7 @@ If changes are found delete unchanged files and run the relevant unpack_to_OGG(l
 Or if very few files they can be moved to Game Files and use Unpack to OGG
 Upload the converted files from OGG_* to their relevant host directory
 Update the old wWiseSoundBank folders, delete new wWiseSoundBank folders, update audio patch number
+
+
+
+This whole thing should be rebuilt in ffmpeg if long term use

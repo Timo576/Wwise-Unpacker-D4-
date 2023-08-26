@@ -13,3 +13,5 @@ del Decoding_payload\*.wav
 del Decoding_enUS_speech\*.ogg
 del Decoding_enUS_speech\*.wsb
 del Decoding_enUS_speech\*.wav
+
+rem just a simple batch file to clean out the decoding folder if work gets stuck

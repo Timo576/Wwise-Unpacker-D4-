@@ -1,0 +1,65 @@
+# scan data for wave files
+# RIFF and RIFX header supported
+# note: There are wave files with a wrong file size after RIFF/RIFX
+#       This script takes the stream size, adds the header size and writes the correct size after RIFF/RIFX
+# (c) 2012-06-26 by AlphaTwentyThree
+# edited 2023-08-22 gyvtuu576
+#
+# future update plans:
+# - option to also write data between found wave files to disk
+# - option to automatically transform the file to a playable or at least decodable format
+
+
+FindLoc DIDXPOS string "DIDX" 0 ""   		# Search for "DIDX ", save position as variable DIDXPOS
+if DIDXPOS == ""
+   cleanexit                  				# If nothing is found the script exits (prob no sounds in file)
+endif
+goto DIDXPOS								# Moves cursor to the DIDX title to start reading
+get DUMMY long								# Skips over the DIDX label
+get DIDXLEN long							# Saves the length of the DIDX section
+set DIDXNUM DIDXLEN
+math DIDXNUM /= 12							# Finds the number of sound files in this wsb file
+FindLoc DATAPOS long "1096040772" 0 ""  	# Search for "DATA ", save position as variable DATAPOS
+math DATAPOS += 8							# Skips over DATA title and DATA section length to get to RIFF
+
+i = 1
+for i = i <= DIDXNUM                   		# Loop for each sound file referenced in DIDX
+   get DUMMY long							# Skips sound file id title
+   get DATAOFFSET long						# Saves the start location of the sound file relative to the DATA title
+   get DATALEN long							# Saves the length of the sound file
+   
+   set CURRDATAPOS DATAPOS					# 
+   math CURRDATAPOS += DATAOFFSET			# Saves the starting address of the sound file
+   savepos CURRDIDX							# Saves the current cursor spot in DIDX for later use
+   callfunction write 1         			# Run function to write the sound file to memory
+   goto CURRDIDX							# Sets the cursor position back in DIDX incase it was changed
+next i
+
+startfunction write                  		# Function "write" starts here, is called when a sound file is found above
+   get NAME basename               			# Save name without extension under variable NAME
+   string NAME += "_"               		# Add underscore to the name
+   string NAME += i               			# Add the loop variable to the name
+   
+   goto CURRDATAPOS
+   FindLoc fmtPOS long "544501094" 0 ""
+   goto fmtPOS
+   get DUMMY long							         # Skips over the "fmt " title
+   get fmtLEN long							      # Saves the length of the "fmt " subchunk
+   FindLoc dtPOS string "data" 0 ""
+   goto dtPOS
+   get DUMMY long							         # Skips over data title
+   get dtLEN long
+   set newdataLEN fmtLEN
+   math newdataLEN += dtLEN
+   math newdataLEN += 28
+   if newdataLEN != DATALEN                  # Janky code to remove files where "data" length isnt right
+      print "bad file or reference %NAME%" 	# Maybe I should have it saving these to a log but idek why it has to exist
+   else
+      log MEMORY_FILE CURRDATAPOS DATALEN  	# Write file to memory
+      set RIFFSIZE DATALEN
+      math RIFFSIZE -= 8
+      putVarChr MEMORY_FILE 4 RIFFSIZE long	# Write the correct riff size to the header inside the memory
+      string NAME += ".wav"            		# Add extension to the name (the name could contain the name of the first marker if the file has markers)
+      log NAME 0 DATALEN MEMORY_FILE       	# Write file in memory to disk
+   endif
+endfunction                        			   # Continue with our next i
