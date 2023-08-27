@@ -51,11 +51,17 @@ If you end up doing something with the audio (videos for example) let me know, I
 **D4 fork**
 Extract files to d4audio
 Run Check4Changes (will ONLY be accurate with saved files that were converted)
-If changes are found delete unchanged files and run the relevant unpack_to_OGG(likely all at once to utilize parallelization)
+If changes are found delete unchanged files and run the relevant unpack_to_OGG (fastest all at once to utilize parallelization)
 Or if very few files they can be moved to Game Files and use Unpack to OGG
 Upload the converted files from OGG_* to their relevant host directory
 Update the old wWiseSoundBank folders, delete new wWiseSoundBank folders, update audio patch number
 
-
-
 This whole thing should be rebuilt in ffmpeg if long term use
+
+Some notes:
+wWiseSoundBank payload files are .bnk format
+Child and speech files are basically just the .wem part
+Some files dont contain sound data/are references to other files
+Movies are bink2 j format (~2019)
+Some contain audio, some reference audio and some
+Stringlist subtitles could be converted in theory

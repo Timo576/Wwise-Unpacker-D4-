@@ -45,6 +45,7 @@ Temporary Items
 
 # D4 game files
 d4_audio/*
+Movie_stuff/*
 
 # D4 converted files, idk what the .keep files do
 OGG/*.ogg
